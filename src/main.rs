@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::io;
 
 fn main() {
-    let mut empls: HashMap<String, String> = HashMap::new();//Relation between Employee and Department
+    let mut empls: HashMap<String, String> = HashMap::new(); //Relation between Employee and Department
     loop {
         println!(
             "Menu:
@@ -12,13 +12,19 @@ fn main() {
 			4-Retrive all employees and their department.
 			Press any other value to exit."
         );
-        let mut op = String::new();//options in the menu
-        let mut dep = String::new();//Name of department
-        let mut emp = String::new();//Name of employee
+        let mut op = String::new(); //options in the menu
+        let mut dep = String::new(); //Name of department
+        let mut emp = String::new(); //Name of employee
         io::stdin()
             .read_line(&mut op)
             .expect("Failed to read line.");
-        let op: u32 = op.trim().parse().expect("Number");
+        let op: u32 = match op.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Press a number (1-4) or any other to exit.");
+                continue;
+            }
+        };
         match op {
             1 => add_empl(&mut empls, &mut emp, &mut dep),
             2 => add_dep(&mut empls, &mut dep),
@@ -29,13 +35,15 @@ fn main() {
     }
 }
 fn add_empl(empls: &mut HashMap<String, String>, emp: &mut String, dep: &mut String) {
+    println!("Inform employee name:");
     io::stdin().read_line(emp).expect("Employee");
-
+    println!("Inform employee department:");
     io::stdin().read_line(dep).expect("Department");
 
     empls.insert(emp.to_string(), dep.to_string());
 }
 fn add_dep(empls: &mut HashMap<String, String>, dep: &mut String) {
+    println!("Inform department name:");
     io::stdin().read_line(dep).expect("Department");
     for (_key, val) in empls.iter() {
         if val == dep {
@@ -45,6 +53,7 @@ fn add_dep(empls: &mut HashMap<String, String>, dep: &mut String) {
     }
 }
 fn retrive_by_dep(empls: &HashMap<String, String>, dep: &mut String) {
+    println!("Inform department name:");
     io::stdin().read_line(dep).expect("Department");
     let mut emps: Vec<String> = Vec::new();
     for (key, val) in empls.iter() {
