@@ -39,7 +39,8 @@ fn add_dep(empls: &mut HashMap<String, String>, dep: &mut String) {
     io::stdin().read_line(dep).expect("Department");
     for (_key, val) in empls.iter() {
         if val == dep {
-            println!("Department {} already existent.", dep);
+            println!("Department {}already existent.", dep);
+            break;
         }
     }
 }
