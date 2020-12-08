@@ -2,19 +2,19 @@ use std::collections::HashMap;
 use std::io;
 
 fn main() {
-    let mut empls: HashMap<String, String> = HashMap::new();
+    let mut empls: HashMap<String, String> = HashMap::new();//Relation between Employee and Department
     loop {
         println!(
             "Menu:
 			1-Add employee to department.
 			2-Add departament to company.
-			3-Retrive all people in a department.
+			3-Retrive all employees in a department.
 			4-Retrive all employees and their department.
 			Press any other value to exit."
         );
-        let mut op = String::new();
-        let mut dep = String::new();
-        let mut emp = String::new();
+        let mut op = String::new();//options in the menu
+        let mut dep = String::new();//Name of department
+        let mut emp = String::new();//Name of employee
         io::stdin()
             .read_line(&mut op)
             .expect("Failed to read line.");
